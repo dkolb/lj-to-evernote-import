@@ -1,0 +1,12 @@
+- Copy and paste the list of moods in the format Mood (#id) into a text file.
+- Save the text file as the file mood.
+- Run the following command snippet to generate the function.
+- Copy/Paste into apple script.
+
+echo 'on ConvertMoodId(id)'; \
+sed -e 's/(#\([0-9][0-9]*\))/\1/' mood | \
+   	sed -n '/[0-9]/p' | \
+   	awk '{ printf("%3d %s\n", $2, $1) }' | \
+   	sort -n -k1,3 | \
+   	awk '{ printf("\tif id is equal to %d then return \"%s\"\n", $1, $2) }'; \
+echo 'end convertMoodId'
